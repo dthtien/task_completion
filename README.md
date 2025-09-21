@@ -45,3 +45,60 @@ And the expected output would be:
   "task_005": 100, // 1 closed task  / 1 total task
 }
 ```
+
+## Installation
+### Requirements
+- Ruby 3.4.4
+- Bundler
+OR
+- Docker
+### Setup
+1. Clone the repository
+   ```bash
+   git clone git@github.com:dthtien/task_completion.git
+    ```
+2. Navigate to the project directory
+    ```bash
+    cd task_completion
+    ```
+3. Install dependencies
+    ```bash
+    bundle install
+    ```
+### Usage
+To run the program with the sample test data in #https://github.com/visibuild/visibuild-coding-challenges/blob/master/task-completion/task-completion.data.md
+```bash
+rspec spec/task_integration_spec.rb
+```
+or using Docker:
+```bash
+docker build -t task_completion .
+docker run -it --rm task_completion rspec spec/task_integration_spec.rb
+```
+
+To run the program with your own input data, create a JSON file (e.g., `input.json`) with the following format:
+```json
+[
+  ["task_001", "open", null],
+  ["task_002", "open", "task_001"],
+  ["task_003", "closed", "task_002"],
+  ["task_004", "closed", "task_001"],
+  ["task_005", "closed", "task_004"]
+]
+```
+or use the provided test data files in the `test_data` directory.
+Then, execute the program using the command
+
+```bash
+ruby main.rb input.json
+```
+
+or using Docker:
+
+
+```bash
+docker run -it --rm -v $(pwd):/app task_completion ruby main.rb input.json
+```
+
+The output will be printed to the console in JSON format, showing the completion percentage for each task.
+

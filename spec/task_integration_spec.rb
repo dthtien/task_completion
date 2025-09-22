@@ -92,4 +92,22 @@ RSpec.describe Task do
         }
     end
   end
+
+  context 'with loop' do
+    let(:tasks_data) do
+      [
+        ["task_001", "open", nil],
+        ["task_002", "open", "task_003"],
+        ["task_003", "closed", "task_002"]
+      ]
+    end
+
+    before do
+      Task.build_from_array_without_validation(tasks_data)
+    end
+
+    it do
+      expect { Task.completion_percentages }.to raise_error(RuntimeError, /Infinite loop detected/)
+    end
+  end
 end

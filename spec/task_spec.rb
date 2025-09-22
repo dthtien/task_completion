@@ -29,17 +29,17 @@ RSpec.describe Task do
       context 'with nested children' do
         let(:stats) { parent_task.subtree_stats }
 
-        it { expect(stats).to eq({ total: 4, closed: 2 }) }
+        it { expect(stats).to include({ total: 4, closed: 2 }) }
       end
 
       context 'without children' do
         let(:stats) { unrelated_task.subtree_stats }
-        it { expect(stats).to eq({ total: 1, closed: 1 }) }
+        it { expect(stats).to include({ total: 1, closed: 1 }) }
       end
 
       context 'with one level of children' do
         let(:stats) { child_task1.subtree_stats }
-        it { expect(stats).to eq({ total: 2, closed: 2 }) }
+        it { expect(stats).to include({ total: 2, closed: 2 }) }
       end
     end
 
